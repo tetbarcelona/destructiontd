@@ -1,11 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    android:id="@+id/layout_holder" 
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@drawable/background_intersection" 
+    android:padding="@dimen/padding_border">
+    <TextView
+        android:id="@+id/tower_life"
+        android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textSize="@dimen/text_size"
+    android:text="@string/tower_life"
+    android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/tower_life_value"
+        android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textSize="@dimen/text_size"
+    android:text="@string/tower_life_value"
+    android:textStyle="bold"
+    android:layout_toRightOf="@id/tower_life"/>
+    <TextView
+        android:id="@+id/enemy_count"
+        android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textSize="@dimen/text_size"
+    android:text="@string/enemy_count"
+    android:textStyle="bold"
+    android:layout_below="@id/tower_life"/>
+    
+    <TextView
+        android:id="@+id/enemy_count_value"
+        android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textSize="@dimen/text_size"
+    android:text="@string/enemy_count_value"
+    android:textStyle="bold"
+    android:layout_toRightOf="@id/enemy_count"
+    android:layout_below="@id/tower_life"/>
+    
+    <TextView
+        android:id="@+id/score_text_value"
+        android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textSize="@dimen/text_size"
+    android:text="@string/score_text_value"
+    android:textStyle="bold"
+    android:layout_alignParentRight="true"/>
+    <TextView
+        android:id="@+id/score_text"
+        android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textSize="@dimen/text_size"
+    android:text="@string/score_text"
+    android:textStyle="bold"
+    android:layout_toLeftOf="@id/score_text_value"
+    />
+    
     
  <com.klabcyscorpions.destructiontd.TankView
     android:id="@+id/tower_image"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_centerInParent="true"/>
+ 
+ <!-- <ImageView
+    android:id="@+id/bullet_image"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:src="@drawable/bullet"/> -->
 </RelativeLayout>
