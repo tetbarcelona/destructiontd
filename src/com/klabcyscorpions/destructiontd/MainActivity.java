@@ -1,6 +1,5 @@
 package com.klabcyscorpions.destructiontd;
 
-
 import com.example.destructiontd.R;
 
 import android.app.Activity;
@@ -13,9 +12,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
-		
-		
+
 	}
 
 	@Override

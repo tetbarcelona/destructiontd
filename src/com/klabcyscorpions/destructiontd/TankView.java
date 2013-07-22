@@ -101,6 +101,11 @@ public class TankView extends ImageView {
 			listener.onTankChanged(delta, angle);
 		}
 	}
+	
+	public void updateTank(float angle){
+		this.angle = angle;
+		invalidate();
+	}
 
 	protected void onDraw(Canvas c) {
 		c.rotate(angle, width / 2, height / 2);
