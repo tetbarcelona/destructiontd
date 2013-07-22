@@ -10,4 +10,8 @@
 <string name="tower_life_value">1000</string>
 <string name="enemy_count_value">1000</string>
 <string name="score_text_value">1000</string>
+<string name="game_over">Game Over</string>
+<string name="game_over_description">Thank You for Playing!</string>
+<string name="game_over_score">Your Score:</string>
+<string name="game_over_score_value">1000</string>
 </resources>

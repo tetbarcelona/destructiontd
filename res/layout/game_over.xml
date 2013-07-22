@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/game_over_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/gameover" />
+
+    <TextView
+        android:id="@+id/game_over_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/game_over_image"
+        android:layout_centerInParent="true"
+        android:text="@string/game_over"
+        android:textSize="@dimen/game_over_text" />
+
+    <TextView
+        android:id="@+id/game_over_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/game_over_image"
+        android:layout_centerInParent="true"
+        android:text="@string/game_over_description"
+        android:textSize="@dimen/description_text" />
+
+    <TextView
+        android:id="@+id/game_over_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/game_over_description"
+        android:layout_below="@id/game_over_description"
+        android:layout_centerInParent="true"
+        android:text="@string/game_over_score"
+        android:textSize="@dimen/description_text" />
+
+    <TextView
+        android:id="@+id/game_over_score_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/game_over_description"
+        android:layout_toRightOf="@id/game_over_score"
+        android:text="@string/game_over_score_value"
+        android:textSize="@dimen/description_text" />
+
+</RelativeLayout>
