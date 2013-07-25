@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         <activity
-            android:name="com.klabcyscorpions.destructiontd.TowerAnimation"
+            android:name="com.klabcyscorpions.destructiontd.DTDGameActivity"
             android:label="@string/app_name"
             android:screenOrientation="landscape" >
             <intent-filter>
@@ -24,8 +24,6 @@
             </intent-filter>
         </activity>
         <activity android:name="com.klabcyscorpions.destructiontd.MainActivity" >
-            </activity>
-        <activity android:name="com.klabcyscorpions.destructiontd.Projectiles" >
         </activity>
     </application>
 
