@@ -28,8 +28,10 @@ public final class R {
         public static final int activity_vertical_margin=0x7f060001;
         public static final int description_text=0x7f060005;
         public static final int game_over_text=0x7f060004;
+        public static final int margin_bottom=0x7f060008;
         public static final int padding_border=0x7f060003;
         public static final int padding_game_over=0x7f060006;
+        public static final int padding_life_value=0x7f060007;
         public static final int text_size=0x7f060002;
     }
     public static final class drawable {
@@ -74,12 +76,12 @@ public final class R {
         public static final int game_over_score_value=0x7f0a0005;
         public static final int game_over_text=0x7f0a0002;
         public static final int holder=0x7f0a0006;
-        public static final int layout_holder=0x7f0a0008;
+        public static final int layout_holder=0x7f0a0009;
         public static final int score_text=0x7f0a000e;
         public static final int score_text_value=0x7f0a000d;
         public static final int tower_image=0x7f0a000f;
-        public static final int tower_life=0x7f0a0009;
-        public static final int tower_life_value=0x7f0a000a;
+        public static final int tower_life=0x7f0a000a;
+        public static final int tower_life_value=0x7f0a0008;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;

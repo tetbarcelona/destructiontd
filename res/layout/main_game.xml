@@ -9,6 +9,23 @@
       android:layout_width="fill_parent"
       android:layout_height="fill_parent"/>
     
-
+    <TextView 
+    	android:layout_width="wrap_content"
+      android:layout_height="fill_parent"
+      android:text="@string/tower_life"
+      android:gravity="bottom"
+      android:textStyle="bold"
+      android:layout_marginLeft="@dimen/text_size"
+      android:layout_marginBottom="@dimen/margin_bottom"
+      />
+    <TextView 
+    	android:id="@+id/tower_life_value"
+        android:layout_width="wrap_content"
+      android:layout_height="fill_parent"
+      android:text="@string/tower_life_value"
+      android:gravity="bottom"
+       android:layout_marginLeft="@dimen/padding_life_value"
+       android:textStyle="bold"
+       android:layout_marginBottom="@dimen/margin_bottom" />
          
 </FrameLayout>

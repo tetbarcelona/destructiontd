@@ -7,7 +7,7 @@
 <string name="tower_life">Tower HP:</string>
 <string name="enemy_count">Enemy Count:</string>
 <string name="score_text">Score:</string>
-<string name="tower_life_value">1000</string>
+<string name="tower_life_value">100</string>
 <string name="enemy_count_value">1000</string>
 <string name="score_text_value">1000</string>
 <string name="game_over">Game Over</string>

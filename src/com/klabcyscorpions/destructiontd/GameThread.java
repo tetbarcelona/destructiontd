@@ -16,8 +16,10 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
+import android.widget.TextView;
 
 import com.example.destructiontd.R;
+
 
 
 
@@ -72,7 +74,6 @@ public class GameThread extends Thread {
 	
 	private long lastUpdateTime;
 	public static Resources res;
-	private Vibrator vibrator;
 	public static DisplayMetrics displayMetrics;
 	private static int screenWidth, screenHeight;
 
@@ -95,18 +96,18 @@ public class GameThread extends Thread {
 		bullets = new ArrayList<Bullet>();
 		enemies = new ArrayList<Enemy>();
 		input = new Input();
-
+		
 //		SoundManager.loadSound(mContext);
 		topSpawnArea = new Point(375, -10);
 		bottomSpawnArea = new Point(375, 450);
 		leftSpawnArea = new Point(0, 210);
 		rightSpawnArea = new Point(770, 210);
-//		topSpawnArea = new Point(GameThread.getScreenWidth(), GameThread.getScreenHeight()/2) ;
+//		topSpawnArea = new Point(GameThread.getScreenHeight(), GameThread.getScreenWidth() / 2 ) ;
 //		bottomSpawnArea = new Point((GameThread.getScreenHeight() / 2), (GameThread.getScreenWidth()));
 //		leftSpawnArea = new Point(0, (GameThread.getScreenWidth() / 2));
 //		rightSpawnArea = new Point(GameThread.getScreenHeight(), (GameThread.getScreenWidth() / 2));
-
-
+		
+		
 	}
 	/**
 	 * Starts the game
@@ -207,10 +208,32 @@ public class GameThread extends Thread {
 
 	private void updatePhysics(long delta) {
 		delta=(long) (delta); //adjust the overall speed
-
+		int i=0, j=0;
+		while (!enemies.isEmpty() && enemies.size()>i){
+			j=0;
+			while (!bullets.isEmpty() && bullets.size()>j){
+				if(enemies.get(i).isColliding(bullets.get(j).getBounds())){
+					Log.v("collided", "Collided!");
+					enemies.get(i).setRelease(true);
+					bullets.get(j).setRelease(true);
+				}
+//				if (enemies.get(i).enemyRight >= bullets.get(i).bulletLeft && enemies.get(i).enemyLeft <= bullets.get(i).bulletRight && enemies.get(i).enemyBottom >= bullets.get(i).bulletTop && enemies.get(i).enemyTop <= bullets.get(i).bulletBottom){
+//					 Log.v("collided", "Collided!");
+//						enemies.get(i).setRelease(true);
+//						bullets.get(j).setRelease(true);
+//				if((enemies.get(i).enemyRight >= bullets.get(j).bulletLeft || enemies.get(i).enemyLeft <= bullets.get(j).bulletRight) && (enemies.get(i).enemyBottom >= bullets.get(j).bulletTop|| enemies.get(i).enemyTop <= bullets.get(j).bulletBottom)){
+//					 Log.v("collided", "Collided!");
+//						enemies.get(i).setRelease(true);
+//						bullets.get(j).setRelease(true);
+//				} 
+				j++;
+			}
+			i++;
+		}
+		
 		
 		//draw the bullets
-		int i=0;
+		i=0;
 		Bullet b;
 		while (!bullets.isEmpty() && bullets.size()>i){
 			b = bullets.get(i);
@@ -222,17 +245,19 @@ public class GameThread extends Thread {
 			}
 		}
 		
-		int m=0;
+		i=0;
+		j=0;
 		Enemy e;
-		while (!enemies.isEmpty() && enemies.size()>m){
-			e = enemies.get(m);
+		while (!enemies.isEmpty() && enemies.size()>i){
+			e = enemies.get(i);
 			if (e.isReleaseEnemy())
-				enemies.remove(m);
+				enemies.remove(i);
 			else {
 				e.update(delta);
-				m++;
+				i++;
 			}
 		}
+		
 		
 		spawnEnemyTimer += delta;
 		if(spawnEnemyTimer > SPAWN_ENEMY){
@@ -254,7 +279,7 @@ public class GameThread extends Thread {
 			}
 			spawnEnemyTimer = 0;
 		}
-		
+			
 	}
 	
 	public List<Bullet> getBullets(){
@@ -331,5 +356,6 @@ public class GameThread extends Thread {
 		int eventAction;
 		float x, y;
 	}
-
+	
+	
 }

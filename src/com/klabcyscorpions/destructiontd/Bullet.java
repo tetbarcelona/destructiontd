@@ -23,7 +23,10 @@ public class Bullet{
 	float yIntercept;
 	float mx;
 	boolean releaseBullet;
-
+	Rect bounds;
+	private int bulletWidth;
+	private int bulletHeight;
+	int bulletLeft,bulletRight,bulletTop,bulletBottom;
 
 	private ProjectileListener listener;
 
@@ -33,6 +36,9 @@ public class Bullet{
 		options.inPreferredConfig = Bitmap.Config.ARGB_8888;
 		bulletBitmap = BitmapFactory.decodeResource(context.getResources(),
                 									R.drawable.bullet);
+		int bulletWidth = bulletBitmap.getWidth();
+        int bulletHeight = bulletBitmap.getHeight();
+		
 		launchPointX = initialX;
 		launchPointY = initialY;
 		x = initialX;
@@ -44,6 +50,12 @@ public class Bullet{
 		} catch(ArithmeticException a){
 			slope = 0;
 		}
+//		bounds = new Rect((int)launchPointX, (int)launchPointY + bulletHeight, (int)launchPointX + bulletWidth, (int)launchPointY);
+		bounds = new Rect((int)launchPointX, (int)launchPointY , (int)launchPointX + bulletWidth, (int)launchPointY + bulletHeight);
+		bulletLeft = (int)launchPointX;
+		bulletRight =(int) launchPointX + bulletWidth;
+		bulletTop =(int) launchPointY;
+		bulletBottom =(int)launchPointX + bulletHeight;
 	}
 
 	public interface ProjectileListener {
@@ -86,7 +98,19 @@ public class Bullet{
 			
 			y = slope * x + yIntercept;
 			stateTime -= 100;
-			
+			bounds.left = (int)x;
+			bounds.top = (int)y ;
+			bounds.right = (int)x + bulletWidth;
+			bounds.bottom = (int)y + bulletHeight;
+			/*bounds.left = (int)x;
+			bounds.top = (int)y ;
+			bounds.right = (int)x + bulletWidth;
+			bounds.bottom = (int)y + bulletHeight;*/
+			bulletLeft = (int)launchPointX;
+			bulletRight = (int)launchPointX + bulletWidth;
+			bulletTop =(int) launchPointY;
+			bulletBottom = (int)launchPointX + bulletHeight;
+			Log.v("bounds", "update bullet: " + bounds);
 			if(GameThread.getScreenWidth() - Math.abs(x) < 0){
 				releaseBullet = true;
 				Log.d("tet", "bullet release");
@@ -97,9 +121,20 @@ public class Bullet{
 	public void draw(Canvas c){
 		c.drawBitmap(bulletBitmap, x, y, null);
 	}
-	
+	public void setRelease(boolean release){
+		releaseBullet = release;
+	}
 	public boolean isReleaseBullet(){
 		return releaseBullet;
 	}
-
+	
+	public boolean isColliding(Rect r){
+//		return bounds.intersect(r);
+		return bounds.intersects((int)x,(int) y ,(int) x + bulletWidth, (int) y + bulletHeight);
+		
+	}
+	public Rect getBounds(){
+		Log.v("shake", "bulletBounds: " + bounds);
+		return bounds;
+	}
 }

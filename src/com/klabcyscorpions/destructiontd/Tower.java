@@ -43,7 +43,9 @@ public class Tower{
 		height = towerBitmap.getHeight();
 		matrix = new Matrix();
 	}
-	
+	public Tower(Context context, int towerHp) {
+		this.towerHP = towerHp;
+	}
 	
 	private float getTheta(float x, float y) {
 		
@@ -59,6 +61,7 @@ public class Tower{
 		float theta2 = theta * rad2deg;
 
 		return (theta2 < 0) ? theta2 + 360.0f : theta2;
+
 	}
 
 	public void setPosition(float x, float y){
@@ -94,7 +97,7 @@ public class Tower{
 	}
 	
 	public void rotateTower(float x , float y){
-		angle = (getTheta(x, y) + 90) % 360;
+		angle = (getTheta(GameThread.getScreenWidth()/2 - width/2, GameThread.getScreenHeight()/2 - height/2) + 90) % 360;
 	}
 
 	public void draw(Canvas c) {
@@ -104,6 +107,7 @@ public class Tower{
 		Log.v("here", "TranslateX : " + x + " TranslateY : " + y);
 		c.drawBitmap(towerBitmap, matrix, null);
 	}
+	
 	
 	
 }
