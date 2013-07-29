@@ -9,10 +9,12 @@ import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.example.destructiontd.R;
 
 public class Enemy {
+	private HUD hud;
 	static final float ENEMY_SPEED = 3f;
 	private Bitmap enemyBitmap;
 	private long stateTime = 0;
@@ -25,7 +27,8 @@ public class Enemy {
 	private int enemyWidth;
 	private int enemyHeight;
 	int enemyLeft,enemyRight,enemyTop,enemyBottom;
-	boolean towerDamaged;
+	public static boolean towerDamaged;
+
 	
 	public Enemy(Context context, int spawnArea, float spawnX, float spawnY){
 		BitmapFactory.Options options = new BitmapFactory.Options();  
@@ -50,6 +53,7 @@ public class Enemy {
 		enemyBottom = (int)startY + enemyHeight;
 	}
 	
+
 	public boolean isReleaseEnemy() {
 		// TODO Auto-generated method stub
 		return releaseEnemy;
@@ -66,37 +70,41 @@ public class Enemy {
 				startY -= ENEMY_SPEED;
 				if(destinationY - Math.abs(startY) > 0)
 				{
-				releaseEnemy = true;
 				towerDamaged = true;
-			}	
+				releaseEnemy = true;			
+			}	else towerDamaged = false;
 				break;
 			case GameThread.SPAWN_RIGHT:
 				startX -= ENEMY_SPEED;
 				if((destinationX - Math.abs(startX) > 0))
 				{
-				releaseEnemy = true;
-				towerDamaged = true;
-			}
+					towerDamaged = true;
+					releaseEnemy = true;
+			} else towerDamaged = false;
 				break;
 			case GameThread.SPAWN_TOP:
 				startY += ENEMY_SPEED;
 				if((destinationY - Math.abs(startY) < 30))
 				{
-				releaseEnemy = true;
-				towerDamaged = true;
-			}
+					towerDamaged = true;
+					releaseEnemy = true;
+			} else towerDamaged = false;
 				break;
 			case GameThread.SPAWN_LEFT:
 				startX += ENEMY_SPEED;
 				if(destinationX - Math.abs(startX) < 10)
 				{
-				releaseEnemy = true;
-				towerDamaged = true;
-			}
+					towerDamaged = true;
+					releaseEnemy = true;
+			} else towerDamaged = false;
 				break;
 
 			} stateTime -= 100;
 			/*bounds.left = (int)startX;
+			 * 
+			 * 
+			 * 
+			 * 
 			bounds.top = (int)startY + enemyHeight;
 			bounds.right = (int)startX + enemyWidth;
 			bounds.bottom = (int)startY;*/
@@ -113,7 +121,7 @@ public class Enemy {
 	stateTime -= 100;
 }
 	
-	
+
 	public void draw(Canvas c) {
 		// TODO Auto-generated method stub
 		c.drawBitmap(enemyBitmap, startX, startY, null);
@@ -121,25 +129,24 @@ public class Enemy {
 	public void setRelease(boolean release){
 		releaseEnemy = release;
 	}
+
 	public boolean isColliding(Rect r){
-		//return bounds.intersect(r);
-//		Log.v("bounds", "enemy left: " + bounds.left + "; top: "+ bounds.top + "; right: " + bounds.right + "; bottom: " + bounds.bottom);
-//		Log.v("bounds", "bullet left: " + r.left + "; top: "+ r.top + "; right: " + r.right + "; bottom: " + r.bottom);
-//		return bounds.intersects((int)startX,(int) startY ,(int) startX + enemyWidth, (int) startY + enemyHeight);
-		return bounds.contains(r);
-//		return bounds.intersect(r);
-		
+	return bounds.contains(r);
+
 	}
 	
-
 	public Rect getBounds(){
 		Log.v("delta", "enemyBounds: " + bounds);
 		return bounds;
 	}
-	public boolean isTowerDamaged(){
+	public static boolean isTowerDamaged(){
 		if(towerDamaged == false){
+			Log.v("towerDamaged", "false");
 			return false;
-		} else
-		return true;
+		} else 
+			Log.v("towerDamaged", "true");
+			return true;
 	}
+	
+	
 }

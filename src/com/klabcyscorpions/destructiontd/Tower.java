@@ -27,7 +27,6 @@ public class Tower{
 	private Bitmap towerBitmap;
 	private Matrix matrix;
 	private float towerPosition;
-	private int towerHP = 100;
 
 	public interface TankListener {
 		public void onTankChanged(float delta, float angle);
@@ -42,9 +41,6 @@ public class Tower{
 		width = towerBitmap.getWidth();
 		height = towerBitmap.getHeight();
 		matrix = new Matrix();
-	}
-	public Tower(Context context, int towerHp) {
-		this.towerHP = towerHp;
 	}
 	
 	private float getTheta(float x, float y) {
@@ -97,7 +93,7 @@ public class Tower{
 	}
 	
 	public void rotateTower(float x , float y){
-		angle = (getTheta(GameThread.getScreenWidth()/2 - width/2, GameThread.getScreenHeight()/2 - height/2) + 90) % 360;
+		angle = (getTheta(x , y) + 90) % 360;
 	}
 
 	public void draw(Canvas c) {

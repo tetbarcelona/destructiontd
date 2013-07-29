@@ -16,11 +16,10 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
+import android.webkit.WebView.FindListener;
 import android.widget.TextView;
 
 import com.example.destructiontd.R;
-
-
 
 
 
@@ -67,12 +66,14 @@ public class GameThread extends Thread {
 
 	/** Indicate whether the surface has been created & is ready to draw */
 	public static boolean mRun = false;
-	
+	private HUD hud;
+	private Enemy enemy;
 	private static Tower tower;
 	private static ArrayList<Bullet> bullets;
 	private static ArrayList<Enemy> enemies;
 	
 	private long lastUpdateTime;
+
 	public static Resources res;
 	public static DisplayMetrics displayMetrics;
 	private static int screenWidth, screenHeight;
@@ -91,7 +92,6 @@ public class GameThread extends Thread {
 		towerImg = BitmapFactory.decodeResource(res, R.drawable.tower_sprite);
 //		bulletImg = BitmapFactory.decodeResource(res, R.drawable.bullet);
 		enemyImg = BitmapFactory.decodeResource(res, R.drawable.enemy);
-		
 		tower = new Tower(context, towerImg);
 		bullets = new ArrayList<Bullet>();
 		enemies = new ArrayList<Enemy>();
@@ -109,6 +109,7 @@ public class GameThread extends Thread {
 		
 		
 	}
+	
 	/**
 	 * Starts the game
 	 */
@@ -199,9 +200,9 @@ public class GameThread extends Thread {
 		}
 
 
-		//Draw the tank
+		//Draw the tower
 		tower.draw(canvas);
-		
+		hud.draw(canvas);
 //		tower.invalidate();
 
 	}
@@ -214,9 +215,10 @@ public class GameThread extends Thread {
 			while (!bullets.isEmpty() && bullets.size()>j){
 				if(enemies.get(i).isColliding(bullets.get(j).getBounds())){
 					Log.v("collided", "Collided!");
+					hud.scoreIncreased();
 					enemies.get(i).setRelease(true);
 					bullets.get(j).setRelease(true);
-				}
+				} 
 //				if (enemies.get(i).enemyRight >= bullets.get(i).bulletLeft && enemies.get(i).enemyLeft <= bullets.get(i).bulletRight && enemies.get(i).enemyBottom >= bullets.get(i).bulletTop && enemies.get(i).enemyTop <= bullets.get(i).bulletBottom){
 //					 Log.v("collided", "Collided!");
 //						enemies.get(i).setRelease(true);
@@ -250,14 +252,18 @@ public class GameThread extends Thread {
 		Enemy e;
 		while (!enemies.isEmpty() && enemies.size()>i){
 			e = enemies.get(i);
-			if (e.isReleaseEnemy())
-				enemies.remove(i);
+			if(Enemy.isTowerDamaged()){
+				hud.towerAttacked();
+			}
+			if (e.isReleaseEnemy()){
+				enemies.remove(i);				
+			} 
+			
 			else {
-				e.update(delta);
+				e.update(delta);				
 				i++;
 			}
 		}
-		
 		
 		spawnEnemyTimer += delta;
 		if(spawnEnemyTimer > SPAWN_ENEMY){
@@ -332,6 +338,7 @@ public class GameThread extends Thread {
 		
 		tower.setPosition(screenWidth/2 - tower.getTowerWidth()/2,
 				screenHeight/2 - tower.getTowerHeight()/2);
+		hud = new HUD(m);
 	}
 	
 
@@ -356,6 +363,8 @@ public class GameThread extends Thread {
 		int eventAction;
 		float x, y;
 	}
+	
+	
 	
 	
 }

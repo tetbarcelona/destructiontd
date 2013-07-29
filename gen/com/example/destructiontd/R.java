@@ -63,12 +63,13 @@ public final class R {
         public static final int tower_sprite5=0x7f020019;
         public static final int tower_sprite6=0x7f02001a;
         public static final int tower_sprite7=0x7f02001b;
+        public static final int tower_sprite_new=0x7f02001c;
     }
     public static final class id {
-        public static final int action_settings=0x7f0a0010;
+        public static final int action_settings=0x7f0a000f;
         public static final int button_id=0x7f0a0000;
-        public static final int enemy_count=0x7f0a000b;
-        public static final int enemy_count_value=0x7f0a000c;
+        public static final int enemy_count=0x7f0a000a;
+        public static final int enemy_count_value=0x7f0a000b;
         public static final int game=0x7f0a0007;
         public static final int game_over_description=0x7f0a0003;
         public static final int game_over_image=0x7f0a0001;
@@ -76,12 +77,11 @@ public final class R {
         public static final int game_over_score_value=0x7f0a0005;
         public static final int game_over_text=0x7f0a0002;
         public static final int holder=0x7f0a0006;
-        public static final int layout_holder=0x7f0a0009;
-        public static final int score_text=0x7f0a000e;
-        public static final int score_text_value=0x7f0a000d;
-        public static final int tower_image=0x7f0a000f;
-        public static final int tower_life=0x7f0a000a;
-        public static final int tower_life_value=0x7f0a0008;
+        public static final int layout_holder=0x7f0a0008;
+        public static final int score_text=0x7f0a000d;
+        public static final int score_text_value=0x7f0a000c;
+        public static final int tower_image=0x7f0a000e;
+        public static final int tower_life=0x7f0a0009;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
