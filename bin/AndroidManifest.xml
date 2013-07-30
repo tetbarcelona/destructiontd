@@ -23,7 +23,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.klabcyscorpions.destructiontd.MainActivity" >
+        <activity android:name="com.klabcyscorpions.destructiontd.MainActivity"
+            android:screenOrientation="landscape" >
+        </activity>
+           <activity android:name="com.klabcyscorpions.destructiontd.GameOver"
+               android:screenOrientation="landscape" >
         </activity>
     </application>
 

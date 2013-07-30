@@ -17,8 +17,8 @@ public class HUD implements Renderable {
 	private static final int TEXT_INFO_LEFT_MARGIN = 10;
 	private static final int TEXT_SIZE = 15;
 
-	private int towerAttacked;
-	private int Score;
+	private static int towerHp;
+	private static int Score;
 
 	LinearGradient gradient;
 
@@ -36,7 +36,7 @@ public class HUD implements Renderable {
 		scale = (float) dm.densityDpi/160;
 
 		
-		towerAttacked = 10;
+		towerHp = 10;
 		Score = 0;
 }
 
@@ -46,7 +46,7 @@ public class HUD implements Renderable {
 		paint.setStrokeWidth(0);
 		paint.setAntiAlias(true);
 		paint.setTextSize(TEXT_SIZE*scale);
-		c.drawText("Tower Hp: "+ towerAttacked, TEXT_INFO_LEFT_MARGIN * scale, TEXT_COUNTER_TOP_MARGIN * scale, paint);
+		c.drawText("Tower Hp: "+ towerHp, TEXT_INFO_LEFT_MARGIN * scale, TEXT_COUNTER_TOP_MARGIN * scale, paint);
 		c.drawText("Score: "+ Score, TEXT_INFO_LEFT_MARGIN * scale, TEXT_COUNTER_TOP_MARGIN2 * scale, paint);
 
 	}
@@ -57,12 +57,18 @@ public class HUD implements Renderable {
 
 	}
 
-	public void towerAttacked() {
-		towerAttacked--;
+	public static void towerHp() {
+		towerHp--;
+	}
+
+	public static int towerHpValue(){
+		return towerHp;
 	}
 	public void scoreIncreased() {
 		Score+=100;
 	}
-
+	public static int scoreValue(){
+		return Score;
+	}
 
 }

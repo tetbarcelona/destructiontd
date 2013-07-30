@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -35,7 +37,7 @@ public class GameThread extends Thread {
 					leftSpawnArea, rightSpawnArea;
 
 	/** Handle to the surface manager object we interact with */
-	private SurfaceHolder mSurfaceHolder;
+	private static SurfaceHolder mSurfaceHolder;
 
 	public DisplayMetrics metrics = new DisplayMetrics();
 
@@ -52,9 +54,9 @@ public class GameThread extends Thread {
 	public static Bitmap enemyImg;
 
 	/** Message handler used by thread to interact with TextView */
-	private Handler mHandler;
+	private static Handler mHandler;
 
-	private Context mContext;
+	private static Context mContext;
 
 	private Object inputProccessorMutex = new Object();
 
@@ -253,7 +255,11 @@ public class GameThread extends Thread {
 		while (!enemies.isEmpty() && enemies.size()>i){
 			e = enemies.get(i);
 			if(Enemy.isTowerDamaged()){
-				hud.towerAttacked();
+				HUD.towerHp();
+				int p = HUD.towerHpValue();
+				if(p <= 0){
+					isGameOver();
+				}
 			}
 			if (e.isReleaseEnemy()){
 				enemies.remove(i);				
@@ -364,7 +370,12 @@ public class GameThread extends Thread {
 		float x, y;
 	}
 	
-	
+	public static void isGameOver() {
+		Intent i = new Intent(mContext, GameOver.class);
+		GameThread p = new GameThread(mSurfaceHolder, mContext, mHandler);
+	//	p.join();
+		((Activity)mContext).startActivity(i);
+	}
 	
 	
 }
