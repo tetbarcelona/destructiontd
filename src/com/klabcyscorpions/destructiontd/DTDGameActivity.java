@@ -3,6 +3,7 @@ package com.klabcyscorpions.destructiontd;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -39,11 +40,18 @@ public class DTDGameActivity extends Activity {
 			@Override
 			public boolean onTouch(View view, MotionEvent event) {
 				mGameThread.feedInput(event.getAction(), event.getX(0), event.getY(0));
+				Log.v("gameover", "event.getX: " + event.getX() + " event.getY: " + event.getY());
 				return true;
 			}
 		});
 	}
-	
+	@Override
+	protected void onDestroy() {    	
+		super.onDestroy();
+		//mGameView.getThread().start(); 
+			
+		}
+
+	}
 	
 
-}

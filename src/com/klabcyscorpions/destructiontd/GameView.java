@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -19,7 +20,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
 
 	/** The thread that actually draws the animation */
-	private GameThread thread;
+	private static GameThread thread;
 
 	public GameView(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -81,6 +82,17 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 		// it might touch the Surface after we return and explode
 
 		thread.setRunning(false);
+		 boolean retry = true;
+		    thread.setRunning(false);
+		    Log.v("gameover", "Im here!");
+		    while (retry) {
+		        try {
+		            thread.join();
+		            retry = false;
+		        } 
+		        catch (InterruptedException e) {
+		        }
+		    }
 	}
 
 

@@ -10,11 +10,11 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/destruct"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         <activity
-            android:name="com.klabcyscorpions.destructiontd.DTDGameActivity"
+            android:name="com.klabcyscorpions.destructiontd.SplashScreen"
             android:label="@string/app_name"
             android:screenOrientation="landscape" >
             <intent-filter>
@@ -26,6 +26,9 @@
         <activity android:name="com.klabcyscorpions.destructiontd.MainActivity"
             android:screenOrientation="landscape" >
         </activity>
+        <activity android:name="com.klabcyscorpions.destructiontd.DTDGameActivity"
+               android:screenOrientation="landscape" >
+            </activity>
            <activity android:name="com.klabcyscorpions.destructiontd.GameOver"
                android:screenOrientation="landscape" >
         </activity>

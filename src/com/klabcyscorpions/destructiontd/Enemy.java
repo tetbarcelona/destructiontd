@@ -37,7 +37,7 @@ public class Enemy {
                 									R.drawable.enemy);
 		enemyWidth = enemyBitmap.getWidth();
         enemyHeight = enemyBitmap.getHeight();
-//        enemyBitmap.recycle();
+
         
 		startX = spawnX;
 		startY = spawnY;
@@ -46,7 +46,6 @@ public class Enemy {
 		destinationY = GameThread.getScreenHeight()/2;
 		bounds = new Rect((int)startX, (int)startY , (int)startX + enemyWidth, (int)startY + enemyHeight);
 		
-//		bounds = new Rect((int)startX, (int)startY , (int)startX + enemyWidth, (int)startY + enemyHeight);
 		enemyLeft = (int)startX;
 		enemyRight = (int)startX + enemyWidth;
 		enemyTop = (int)startY;
@@ -100,14 +99,7 @@ public class Enemy {
 				break;
 
 			} stateTime -= 100;
-			/*bounds.left = (int)startX;
-			 * 
-			 * 
-			 * 
-			 * 
-			bounds.top = (int)startY + enemyHeight;
-			bounds.right = (int)startX + enemyWidth;
-			bounds.bottom = (int)startY;*/
+
 			bounds.left = (int)startX;
 			bounds.top = (int)startY ;
 			bounds.right = (int)startX + enemyWidth;

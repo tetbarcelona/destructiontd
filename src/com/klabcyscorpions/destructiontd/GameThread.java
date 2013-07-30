@@ -95,19 +95,16 @@ public class GameThread extends Thread {
 //		bulletImg = BitmapFactory.decodeResource(res, R.drawable.bullet);
 		enemyImg = BitmapFactory.decodeResource(res, R.drawable.enemy);
 		tower = new Tower(context, towerImg);
-		bullets = new ArrayList<Bullet>();
+	
 		enemies = new ArrayList<Enemy>();
 		input = new Input();
 		
 //		SoundManager.loadSound(mContext);
+		
 		topSpawnArea = new Point(375, -10);
 		bottomSpawnArea = new Point(375, 450);
 		leftSpawnArea = new Point(0, 210);
 		rightSpawnArea = new Point(770, 210);
-//		topSpawnArea = new Point(GameThread.getScreenHeight(), GameThread.getScreenWidth() / 2 ) ;
-//		bottomSpawnArea = new Point((GameThread.getScreenHeight() / 2), (GameThread.getScreenWidth()));
-//		leftSpawnArea = new Point(0, (GameThread.getScreenWidth() / 2));
-//		rightSpawnArea = new Point(GameThread.getScreenHeight(), (GameThread.getScreenWidth() / 2));
 		
 		
 	}
@@ -161,14 +158,7 @@ public class GameThread extends Thread {
 
 
 
-	/**
-	 * Used to signal the thread whether it should be running or not.
-	 * Passing true allows the thread to run; passing false will shut it
-	 * down if it's already running. Calling start() after this was most
-	 * recently called with false will result in an immediate shutdown.
-	 * 
-	 * @param b true to run, false to shut down
-	 */
+
 	public void setRunning(boolean b) {
 		mRun = b;
 	}
@@ -176,10 +166,7 @@ public class GameThread extends Thread {
 
 
 
-	/**
-	 * Draws the tank, bullets, planes, and background to the provided
-	 * Canvas.
-	 */
+
 	private void doDraw(Canvas canvas) {
 
 		//draw some background 
@@ -205,7 +192,7 @@ public class GameThread extends Thread {
 		//Draw the tower
 		tower.draw(canvas);
 		hud.draw(canvas);
-//		tower.invalidate();
+
 
 	}
 
@@ -221,15 +208,7 @@ public class GameThread extends Thread {
 					enemies.get(i).setRelease(true);
 					bullets.get(j).setRelease(true);
 				} 
-//				if (enemies.get(i).enemyRight >= bullets.get(i).bulletLeft && enemies.get(i).enemyLeft <= bullets.get(i).bulletRight && enemies.get(i).enemyBottom >= bullets.get(i).bulletTop && enemies.get(i).enemyTop <= bullets.get(i).bulletBottom){
-//					 Log.v("collided", "Collided!");
-//						enemies.get(i).setRelease(true);
-//						bullets.get(j).setRelease(true);
-//				if((enemies.get(i).enemyRight >= bullets.get(j).bulletLeft || enemies.get(i).enemyLeft <= bullets.get(j).bulletRight) && (enemies.get(i).enemyBottom >= bullets.get(j).bulletTop|| enemies.get(i).enemyTop <= bullets.get(j).bulletBottom)){
-//					 Log.v("collided", "Collided!");
-//						enemies.get(i).setRelease(true);
-//						bullets.get(j).setRelease(true);
-//				} 
+
 				j++;
 			}
 			i++;
@@ -313,15 +292,13 @@ public class GameThread extends Thread {
 		synchronized(inputProccessorMutex) {
 			if (input.eventAction == MotionEvent.ACTION_DOWN) {
 				// TODO Add bullet
+				bullets = new ArrayList<Bullet>();
 				Bullet b = new Bullet(mContext, tower.getTowerX() + tower.getTowerWidth()/2,
 												tower.getTowerY() + tower.getTowerHeight()/2,
 												input.x, input.y);
 				bullets.add(b);
-				Log.v("here", "xTAP "+ input.x + "  yTAP " + input.y);
 			} else if (input.eventAction == MotionEvent.ACTION_MOVE) {
-				tower.rotateTower(input.x,input.y);
-				Log.v("teka", "x "+ input.x + "  y " + input.y);
-				//tower.rotateTower(tower.getTowerX(), tower.getTowerY());				
+				tower.rotateTower(input.x,input.y);			
 			}
 		}
 	}
@@ -341,6 +318,7 @@ public class GameThread extends Thread {
 		
 		screenWidth = displayMetrics.widthPixels;
 		screenHeight = displayMetrics.heightPixels;
+		
 		
 		tower.setPosition(screenWidth/2 - tower.getTowerWidth()/2,
 				screenHeight/2 - tower.getTowerHeight()/2);
@@ -369,13 +347,14 @@ public class GameThread extends Thread {
 		int eventAction;
 		float x, y;
 	}
-	
+
 	public static void isGameOver() {
-		Intent i = new Intent(mContext, GameOver.class);
-		GameThread p = new GameThread(mSurfaceHolder, mContext, mHandler);
-	//	p.join();
+		/*GameThread p = new GameThread(mSurfaceHolder, mContext, mHandler){
+		@Override
+    public void run() {*/
+		Intent i = new Intent(mContext, GameOver.class);	
 		((Activity)mContext).startActivity(i);
+	/*}
+		};*/
 	}
-	
-	
 }
