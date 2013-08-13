@@ -33,7 +33,7 @@ public class GameThread extends Thread {
 	public static final int SPAWN_LEFT = 2;
 	public static final int SPAWN_RIGHT = 3;
 	
-	private final Point topSpawnArea, bottomSpawnArea,
+	private static  Point topSpawnArea, bottomSpawnArea,
 					leftSpawnArea, rightSpawnArea;
 
 	/** Handle to the surface manager object we interact with */
@@ -91,22 +91,16 @@ public class GameThread extends Thread {
 		// we don't need to transform it and it's faster to draw this way
 		mBackgroundImage = BitmapFactory.decodeResource(res, R.drawable.background_intersection);
 
-		towerImg = BitmapFactory.decodeResource(res, R.drawable.tower_sprite);
+		towerImg = BitmapFactory.decodeResource(res, R.drawable.tower_cannon);
 //		bulletImg = BitmapFactory.decodeResource(res, R.drawable.bullet);
 		enemyImg = BitmapFactory.decodeResource(res, R.drawable.enemy);
 		tower = new Tower(context, towerImg);
-	
+		bullets = new ArrayList<Bullet>();
 		enemies = new ArrayList<Enemy>();
 		input = new Input();
 		
 //		SoundManager.loadSound(mContext);
-		
-		topSpawnArea = new Point(375, -10);
-		bottomSpawnArea = new Point(375, 450);
-		leftSpawnArea = new Point(0, 210);
-		rightSpawnArea = new Point(770, 210);
-		
-		
+	
 	}
 	
 	/**
@@ -139,11 +133,13 @@ public class GameThread extends Thread {
 				synchronized (mSurfaceHolder) {
 					long currentTime = System.currentTimeMillis();
 					long delta = (long) (currentTime - lastUpdateTime);
-					lastUpdateTime = currentTime;                
+					lastUpdateTime = currentTime; 
 					processInput();
 					updatePhysics(delta);
 //					SoundManager.update(delta);
+					if(c != null){
 					doDraw(c);
+					} 
 				}
 			} finally {
 				// do this in a finally so that if an exception is thrown
@@ -171,7 +167,6 @@ public class GameThread extends Thread {
 
 		//draw some background 
 
-
 		canvas.drawBitmap(mBackgroundImage, 0, 0, null);
 		
 
@@ -190,7 +185,7 @@ public class GameThread extends Thread {
 
 
 		//Draw the tower
-		tower.draw(canvas);
+		tower.draw(canvas); 
 		hud.draw(canvas);
 
 
@@ -292,17 +287,38 @@ public class GameThread extends Thread {
 		synchronized(inputProccessorMutex) {
 			if (input.eventAction == MotionEvent.ACTION_DOWN) {
 				// TODO Add bullet
-				bullets = new ArrayList<Bullet>();
+				Log.v("screens", "LOG LANG NGA EH");
 				Bullet b = new Bullet(mContext, tower.getTowerX() + tower.getTowerWidth()/2,
 												tower.getTowerY() + tower.getTowerHeight()/2,
 												input.x, input.y);
 				bullets.add(b);
-			} else if (input.eventAction == MotionEvent.ACTION_MOVE) {
-				tower.rotateTower(input.x,input.y);			
-			}
+			} /*else if (input.eventAction == MotionEvent.ACTION_MOVE) {
+				tower.rotateTower(input.x,input.y);	*/		
+				else if (input.eventAction == MotionEvent.ACTION_MOVE) {
+				float x = input.x;
+				float y = input.y;
+				//Tower.updateTower((getTheta(x, y) + 90) % 360);
+				tower.updateTower((getTheta(x,y)+90)% 360);
 		}
 	}
-		
+}
+
+	private static float getTheta(float x, float y) {
+		// TODO Auto-generated method stub
+		float sx = x - (tower.getTowerWidth() / 2.0f);
+		float sy = y - (tower.getTowerHeight() / 2.0f);
+
+		float length = (float) Math.sqrt(sx * sx + sy * sy);
+		float nx = sx / length;
+		float ny = sy / length;
+		float theta = (float) Math.atan2(ny, nx);
+
+		final float rad2deg = (float) (180.0 / Math.PI);
+		float theta2 = theta * rad2deg;
+
+		return (theta2 < 0) ? theta2 + 360.0f : theta2;
+
+	}
 
 	public void pause() {
 		// TODO Auto-generated method stub
@@ -322,6 +338,10 @@ public class GameThread extends Thread {
 		
 		tower.setPosition(screenWidth/2 - tower.getTowerWidth()/2,
 				screenHeight/2 - tower.getTowerHeight()/2);
+		topSpawnArea = new Point(((screenWidth/2)-10), 0);
+		bottomSpawnArea = new Point(((screenWidth/2)-10), screenHeight);
+		leftSpawnArea = new Point(0, ((screenHeight/2)-10));
+		rightSpawnArea = new Point(screenWidth, ((screenHeight/2)-10));
 		hud = new HUD(m);
 	}
 	
@@ -344,7 +364,7 @@ public class GameThread extends Thread {
 	
 
 	private class Input{
-		int eventAction;
+		int eventAction = -1;
 		float x, y;
 	}
 

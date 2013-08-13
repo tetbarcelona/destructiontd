@@ -1,21 +1,22 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/dummy" >
+    android:background="@drawable/menu"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:paddingTop="50dp" >
 
     <Button
         android:id="@+id/button_play"
         android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Play"
-    android:layout_centerInParent="true"/>
-     <Button
+        android:layout_height="wrap_content"
+        android:background="@drawable/play_button" />
+
+    <Button
         android:id="@+id/button_exit"
         android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Exit"
-    android:layout_centerInParent="true"
-    android:layout_below="@id/button_play"/>
-    
-</RelativeLayout>
+        android:layout_height="wrap_content"
+        android:background="@drawable/exit_button" />
+
+</LinearLayout>

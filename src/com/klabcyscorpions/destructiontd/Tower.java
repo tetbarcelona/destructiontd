@@ -19,8 +19,8 @@ public class Tower{
 
 	private float angle = 0f;
 	private float theta_old = 0f;
-	private int width;
-	private int height;
+	private static int width;
+	private static int height;
 	private float x, y;
 	private float theta = 0f; 
 	private TankListener listener;
@@ -43,7 +43,7 @@ public class Tower{
 		matrix = new Matrix();
 	}
 	
-	private float getTheta(float x, float y) {
+	private static float getTheta(float x, float y) {
 		
 		float sx = x - (width / 2.0f);
 		float sy = y - (height / 2.0f);
@@ -92,9 +92,10 @@ public class Tower{
 		}
 	}
 	
-	public void rotateTower(float x , float y){
+	/*public void rotateTower(float x , float y){
 		angle = (getTheta(x , y) + 90) % 360;
-	}
+		Log.v("errors", "X: " + x + " Y: " + y);
+	}*/
 
 	public void draw(Canvas c) {
 		matrix.reset();
@@ -104,6 +105,8 @@ public class Tower{
 		c.drawBitmap(towerBitmap, matrix, null);
 	}
 	
-	
+	public void updateTower(float angle){
+		angle = (getTheta(x ,y) +90) % 360;
+	}
 	
 }

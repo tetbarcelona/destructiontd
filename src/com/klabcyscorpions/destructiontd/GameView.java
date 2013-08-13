@@ -82,17 +82,12 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 		// it might touch the Surface after we return and explode
 
 		thread.setRunning(false);
-		 boolean retry = true;
-		    thread.setRunning(false);
-		    Log.v("gameover", "Im here!");
-		    while (retry) {
-		        try {
-		            thread.join();
-		            retry = false;
-		        } 
-		        catch (InterruptedException e) {
-		        }
-		    }
+	    Log.v("gameover", "Im here!");
+        try {
+            thread.join();
+        } 
+        catch (InterruptedException e) {
+        }
 	}
 
 
@@ -107,7 +102,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 	public void surfaceChanged(SurfaceHolder holder, int format, int width,
 			int height) {
 		// TODO Auto-generated method stub
-
+		 
 	}
 
 
